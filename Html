@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Menu Example</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+    }
+    .container {
+        display: flex;
+        height: 100vh;
+    }
+    .sidebar {
+        width: 250px;
+        background-color: #fff;
+        color: #333;
+        transition: transform 0.3s ease;
+        transform: translateX(100%);
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1000;
+        overflow-y: auto;
+        box-shadow: -5px 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .sidebar.open {
+        transform: translateX(0);
+    }
+    .sidebar ul {
+        list-style: none;
+        padding: 0;
+        margin: 20px 0;
+    }
+    .sidebar ul li {
+        padding: 10px;
+        cursor: pointer;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+    }
+    .sidebar ul li:last-child {
+        border-bottom: none;
+    }
+    .sidebar ul li:hover {
+        background-color: #f0f0f0;
+    }
+    .sidebar ul li svg {
+        margin-right: 10px;
+    }
+    .menu-button {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 2000;
+        cursor: pointer;
+    }
+    .menu-button span {
+        display: block;
+        width: 25px;
+        height: 3px;
+        background-color: #333;
+        margin-bottom: 5px;
+        transition: all 0.3s ease;
+    }
+    .menu-button.open span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+    .menu-button.open span:nth-child(2) {
+        opacity: 0;
+    }
+    .menu-button.open span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+    }
+    /* CSS لتنسيق صفحات الواجهة */
+    .page {
+        display: none;
+        padding: 20px;
+    }
+    .page.active {
+        display: block;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="sidebar" id="sidebar">
+        <ul>
+            <li id="profile-link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm1-6h-2v-2h2v2zm0-4h-2V7h2v3z"></path></svg> ملفي</li>
+            <li id="edit-profile-link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M18 9v4H6V9H4v6h16V9h-2z"></path></svg> تعديل بياناتي</li>
+            <li id="full-name-link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M18 9v4H6V9H4v6h16V9h-2z"></path></svg> الاسم الكامل</li>
+            <li id="change-username-link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M18 9v4H6V9H4v6h16V9h-2z"></path></svg> تغير الاسم العضوية</li>
+            <li id="profile-images-link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M18 9v4H6V9H4v6h16V9h-2z"></path></svg> صور ملف بياناتي</li>
+            <li id="change-date-link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M18 9v4H6V9H4v6h16V9h-2z"></path></svg> تغير تاريخ</li>
+            <li id="change-gender-link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M18 9v4H6V9H4v6h16V9h-2z"></path></svg> تغير جنسك</li>
+            <li id="search-member-link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M18 9v4H6V9H4v6h16V9h-2z"></path></svg> البحث عن اسم العضو</li>
+            <li id="banned-members-link"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M18 9v4H6V9H4
+</div>
+
+<div class="menu-button" id="menu-button">
+    <span></span>
+    <span></span>
+    <span></span>
+</div>
+
+<!-- تضاف صفحات الواجهة هنا -->
+<div id="profile-page" class="page">
+    <h2>بياناتي</h2>
+    <!-- يتم عرض بيانات المستخدم هنا -->
+</div>
+
+<div id="edit-profile-page" class="page">
+    <h2>تعديل بياناتي</h2>
+    <!-- يتم عرض نموذج تعديل بيانات المستخدم هنا -->
+</div>
+
+<div id="full-name-page" class="page">
+    <h2>الاسم الكامل</h2>
+    <!-- يتم عرض نموذج تغيير الاسم الكامل هنا -->
+</div>
+
+<!-- تضاف المزيد من الصفحات حسب الحاجة -->
+
+<script>
+    const menuButton = document.getElementById('menu-button');
+    const sidebar = document.getElementById('sidebar');
+    const profileLink = document.getElementById('profile-link');
+    const editProfileLink = document.getElementById('edit-profile-link');
+    const fullNameLink = document.getElementById('full-name-link');
+    // يتم تعيين المتغيرات لبقية الروابط هنا
+
+    const profilePage = document.getElementById('profile-page');
+    const editProfilePage = document.getElementById('edit-profile-page');
+    const fullNamePage = document.getElementById('full-name-page');
+    // يتم تعيين المتغيرات لبقية الصفحات هنا
+
+    menuButton.addEventListener('click', () => {
+        sidebar.classList.toggle('open');
+    });
+
+    profileLink.addEventListener('click', () => {
+        // إظهار صفحة بيانات المستخدم وإخفاء باقي الصفحات
+        profilePage.classList.add('active');
+        editProfilePage.classList.remove('active');
+        fullNamePage.classList.remove('active');
+        // إخفاء الشريط الجانبي بعد النقر (يمكن إزالة هذا السطر إذا كنت لا ترغب في ذلك)
+        sidebar.classList.remove('open');
+    });
+
+    editProfileLink.addEventListener('click', () => {
+        // إظهار صفحة تعديل بيانات المستخدم وإخفاء باقي الصفحات
+        profilePage.classList.remove('active');
+        editProfilePage.classList.add('active');
+        fullNamePage.classList.remove('active');
+        // إخفاء الشريط الجانبي بعد النقر (يمكن إزالة هذا السطر إذا كنت لا ترغب في ذلك)
+        sidebar.classList.remove('open');
+    });
+
+    fullNameLink.addEventListener('click', () => {
+        // إظهار صفحة تغيير الاسم الكامل وإخفاء باقي الصفحات
+        profilePage.classList.remove('active');
+        editProfilePage.classList.remove('active');
+        fullNamePage.classList.add('active');
+        // إخفاء الشريط الجانبي بعد النقر (يمكن إزالة هذا السطر إذا كنت لا ترغب في ذلك)
+        sidebar.classList.remove('open');
+    });
+
+    // يمكن تكرار هذا السيناريو لبقية الروابط والصفحات
+</script>
+
+</body>
+</html>
